@@ -59,3 +59,56 @@ Note: Speed inferred based on model type, as H2O AutoML does not show training t
 
 **Observation:** Speed ranks are consistent across feature sets, but reduced features **improve speed overall**.
 
+## MLJAR AutoML
+### 1. Setup
+The experiment was conducted using the MLJAR Supervised AutoML framework with the following configuration:  
+automl = AutoML(  
+    total_time_limit=600,         # Total training time limit: 10 minutes  
+    mode="Perform",               # Balanced mode for accuracy and speed  
+    explain_level=2               # Full explanation including feature importance  
+)
+### 2. Dataset Preparation:
+Dataset: athletes_cleaned.csv  
+Target variable: total_lift  
+Dropped irrelevant columns:['athlete_id', 'name', 'region', 'background', 'experience', 'schedule', 'howlong']  
+Encoded categorical variables: gender, eat  
+Missing values filled with 0  
+### 3. MLJAR AutoML Features:
+Algorithms used: Random Forest, LightGBM, Xgboost, CatBoost, Neural Network  
+
+Built-in preprocessing:  
+- Missing value imputation
+- One-hot encoding (if needed)
+- Feature selection
+
+Built-in ensembling: Model stacking and hill climbing
+
+Auto-generated output:
+- Model leaderboard with RMSE, MAE
+- Feature importance
+- HTML report with visualizations
+
+### 4. Best Model Using All Features
+<img width="358" height="230" alt="image" src="https://github.com/user-attachments/assets/9f25ba3d-3d1c-4bb9-8510-60bbabb7588e" />
+
+### 5. Top 5 Features
+<img width="784" height="546" alt="image" src="https://github.com/user-attachments/assets/3436c854-fa1f-4b7e-a8ed-c62b48d72a0a" />
+
+### 6. Models with Top 3 Features
+<img width="183" height="231" alt="image" src="https://github.com/user-attachments/assets/b0324d7e-c02a-4543-bfbc-0b15cc472f4b" />
+
+### 7. Platform Type: Full-Code
+MLJAR Supervised AutoML is considered a full-code AutoML platform.
+
+**Reasons:**  
+Requires Python coding to load data, define features, and run training.
+
+All configuration (e.g., time limits, mode, metric) is done in code.
+
+There is no GUI or drag-and-drop interface, and model deployment requires further engineering effort.
+
+However, it significantly reduces boilerplate code for preprocessing, model selection, tuning, and reporting.
+
+**Conclusion:**  
+MLJAR provides a fully programmable AutoML pipeline ideal for data scientists who prefer fine control in notebooks or scripts while skipping tedious tuning and model management.
+
